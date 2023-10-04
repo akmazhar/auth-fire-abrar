@@ -1,10 +1,10 @@
 import { createContext, useEffect, useState } from "react";
 import PropTypes from 'prop-types'; 
 import auth from "../firebase/firebase.config";
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import PrivetRoute from "../components/PrivetRoute";
 
-
+const googleProvider = new GoogleAuthProvider();
 
 
 export const AuthContext = createContext(null);
@@ -21,6 +21,10 @@ const AuthProvider = ({ children }) => {
 
     const signInUser = (email, password) => {
         return signInWithEmailAndPassword(auth, email, password)
+    }
+
+    const signInWithGoogle = () => {
+      signInWithPopup(auth, googleProvider);
     }
 
 
@@ -49,6 +53,7 @@ const AuthProvider = ({ children }) => {
         loading,
         createUser, 
         signInUser,
+        signInWithGoogle,
         logOut
      }
 

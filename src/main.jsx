@@ -13,6 +13,9 @@ import Register from './components/Register';
 import AuthProvider from './Provider/AuthProvider';
 import PrivetRoute from './components/PrivetRoute';
 import Order from './components/Order';
+import Profile from './components/Profile';
+import Dashboard from './components/Dashboard';
+import Abrar from './components/Abrar';
 
 const router = createBrowserRouter([
   {
@@ -37,6 +40,18 @@ const router = createBrowserRouter([
       {
         path: "/order",
         element: <PrivetRoute><Order></Order></PrivetRoute>
+      },
+      {
+        path: "/profile",
+        element: <Profile></Profile>
+      },
+      {
+        path: "/dashboard",
+        element: <Dashboard></Dashboard>
+      },
+      {
+        path: "/abrar",
+        element: <Abrar></Abrar>
       },
       
     ]

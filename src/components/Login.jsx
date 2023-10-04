@@ -5,7 +5,7 @@ import { AuthContext } from "../Provider/AuthProvider";
 
 const Login = () => {
 
-   const {signInUser} = useContext(AuthContext)
+   const { signInUser, signInWithGoogle } = useContext(AuthContext)
     const navigate = useNavigate();
 
     const handleLogin = e =>{
@@ -25,7 +25,15 @@ const Login = () => {
      })
     }
      
-    
+    const handleGoogleSignIn = () => {
+      signInWithGoogle()
+      .then(result =>{
+        console.log(result.user);
+      })
+      .catch(error =>{
+        console.error(error);
+      })
+    }
     
     return (
     
@@ -83,7 +91,7 @@ const Login = () => {
 
     <p>New here? Please <Link to="/register"><button className="btn font-semibold text-green-600 btn-link">Register</button></Link> </p>
     
-    
+    <p><button onClick={handleGoogleSignIn} className="btn btn-ghost font-semibold text-blue-600 ">Google</button></p>
       </div>
     </div>
     </div>
@@ -91,7 +99,7 @@ const Login = () => {
     );
     };
     
- 
+
     
 
 export default Login;
