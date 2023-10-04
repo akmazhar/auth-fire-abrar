@@ -1,12 +1,32 @@
-import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../Provider/AuthProvider";
 
 
 const Navbar = () => {
+
+const {user, logOut } = useContext(AuthContext);
+
+const handleLogOut = () =>{
+
+  logOut()
+  .then(() => console.log('User log out successfully'))
+  .catch(error => console.error(error))
+}
+
 
 const navLinks = <>
  <li className="text-pink-600 font-semibold"><NavLink to="/">Home</NavLink></li>
  <li className="ml-5 text-pink-600 font-semibold"><NavLink to="/login">Login</NavLink></li>
  <li className="ml-5 text-pink-600 font-semibold"><NavLink to="/register">Register</NavLink></li>
+ <li className="ml-5 text-pink-600 font-semibold"><NavLink to="/order">Order</NavLink></li>
+ 
+ { user && <>
+   <li className="ml-5 text-pink-600 font-semibold"><NavLink to="/abrar">Abrar</NavLink></li>
+   <li className="ml-5 text-pink-600 font-semibold"><NavLink to="/profile">Profile</NavLink></li>
+
+  </> }
+ 
 
 </>
 
@@ -34,7 +54,27 @@ const navLinks = <>
     </ul>
   </div>
   <div className="navbar-end">
-    <a className="btn btn-secondary px-5 py-1">Button</a>
+
+
+    {
+      // user && <span>{user.email}</span>
+      user ? <>
+      <span>{user.email}</span>
+      <a onClick={handleLogOut} 
+       className="btn btn-small text-white bg-pink-600 px-5">Sign Out</a>
+      </>
+
+      :
+
+      <Link to="/login">
+       <button onClick={handleLogOut} 
+       className="btn btn-small text-white bg-pink-600 px-5">Login</button>
+      
+      </Link>
+    }
+
+    {/* <a onClick={handleLogOut} className="btn btn-small text-white bg-pink-600 px-5">Sign Out</a> */}
+
   </div>
 </div>
     );
